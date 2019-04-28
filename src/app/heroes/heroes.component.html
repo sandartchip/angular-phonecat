@@ -2,17 +2,14 @@
     : ng serve--open -->
 <h2> My Heroes </h2>
 
-<!--
-  <app-heroes>
-  </app-heroes>
+<h2>
+  selected Hero = {{selected_hero.name }}
+</h2>
 
-   app.component.html에서 heroes.component.html호출
-    후 he
---> 
 
-<ul class="heroes2"> <!--  -->
-  <li *ngFor="let hero of heroes2"
-      [class.selected]="hero === selectedHero"
+<ul class="heroes"> <!--  -->
+  <li *ngFor="let hero of heroes"
+      [class.selected]="hero === selected_hero"
       (click)="onSelect(hero)"> <!-- event binding -->
       <span class="badge">
         {{hero.id}}
@@ -20,14 +17,18 @@
         {{hero.name}}
   </li>
 </ul>
-
-<div *ngIf="selectedHero">
-  <h2> {{selectedHero.name | uppercase}} Details</h2>
+<!--
+<div *ngIf="selected_hero">
+  <h2> {{selected_hero.name | uppercase}} Details</h2>
   <div>
-    <span>id: </span>{{selectedHero.id}}
+    <span>id: </span>{{selected_hero.id}}
     <label>
       name:
-      <input [(ngModel)]="selectedHero.name" placeholder="name" />
+      <input [(ngModel)]="selected_hero.name" placeholder="name" />
     </label>
   </div>
 </div>
+    -->
+<app-hero-detail [hero]="selected_hero">
+
+</app-hero-detail>

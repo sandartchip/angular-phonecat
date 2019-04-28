@@ -1,0 +1,23 @@
+
+
+<!--
+  Hero의 detail한 정보를 표현하기 위함
+ -->
+
+<!-- hero는 -->
+<div *ngIf="hero"> <!-- 아무 hero나 표시 가능.-->
+  <h3>DETAIL ELEMENT표시하는 컴포넌트</h3>
+  <h2> {{hero.name | uppercase}} Details</h2>
+  <div>
+    <span>
+      detail information !
+    </span>
+    {{hero.id}}
+  </div>
+  <div>
+    <label> name:
+      <input [(ngModel)]="hero.name"
+             placeholder="name"/>
+    </label>
+  </div>
+</div>
