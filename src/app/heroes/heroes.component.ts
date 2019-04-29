@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
-//import { HEROES } from '../mock-heroes';
+import { HEROES } from '../mock-heroes';
 import { HeroService } from '../hero.service';
 
 @Component({
@@ -9,39 +9,28 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-
-  // 영웅 관련 
-
-  // 변수 선언을 안 하고 바로 받아올 수 있는 듯.
-  // mock-heroes에서 클래스로 선언된 HEROES
-  // 앵귤러의 특이한 점?
-  // 변수 타입, 함수 타입을
-
-  //heroes = HEROES;
-  //HEROES 클래스의 내용을 heroes2 변수에 넣음.
-
-  // selected_hero: Hero;
-  // assign 시킴.
-  /*
-   export class Hero {
-   id: number;
-   name: string;
-  }
-   */
+   
   selected_hero: Hero;
 
   heroes: Hero[]; // 여러 hero를 담는 배열.
-
-  getHeroes(): void {
-
+  
+  /*
+  getHeroes: void {
     this.heroes = this.heroService.getHeroes();
-  }
-  // add the private heroService 파라미터
+  }*/
+  //서버가 heroes 리턴할 때 까지 기다림.
+  //(동기)
+  /*
+  getHeroes(): void {
+    this.heroService.getHeroes().
+      subscribe(heroes => this.heroes = heroes);
+  }*/
+  //비동기적으로 결과 받음.
   constructor(private heroService: HeroService) { }
   
   
   ngOnInit() { //lifecycle hook
-    this.getHeroes();
+    //this.getHeroes();
   }
   onSelect(clicked_hero: Hero): void {
     this.selected_hero = clicked_hero;
