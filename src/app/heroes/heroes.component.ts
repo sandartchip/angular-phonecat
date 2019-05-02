@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HEROES } from '../mock-heroes';
 import { HeroService } from '../hero.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-heroes', //HTML에서 호출할 때 쓰는 이름.
@@ -9,30 +10,53 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-   
-  selected_hero: Hero;
+  
+//  heroes = HEROES; // heroes : hero array를 저장하고 있는 배열
+  selected_hero: Hero; // Hero 타입 바인딩.
+  heroes: Hero[];
+  heroes2: Hero[];
 
-  heroes: Hero[]; // 여러 hero를 담는 배열.
+  constructor(private heroService: HeroService){ }
+  // constructor(private heroService: HeroService) { }
+  // 생성자를 통해서 HeroService 클래스를 가져 옴.
+  // 변수명은 heroService로.
   
-  /*
-  getHeroes: void {
-    this.heroes = this.heroService.getHeroes();
-  }*/
-  //서버가 heroes 리턴할 때 까지 기다림.
-  //(동기)
-  /*
   getHeroes(): void {
-    this.heroService.getHeroes().
-      subscribe(heroes => this.heroes = heroes);
-  }*/
-  //비동기적으로 결과 받음.
-  constructor(private heroService: HeroService) { }
-  
-  
-  ngOnInit() { //lifecycle hook
-    //this.getHeroes();
+    this.heroService.getHeroes()
+      .subscribe(heroes => this.heroes = heroes);
+    //서비스의 subscribe 함수를
+    /*
+
+  getHeroes(): Observable<Hero[]> {
+    this.messageService.add('hero service test!!');
+    this.messageService.add('hero message test!!');
+    return of(HEROES); //
   }
-  onSelect(clicked_hero: Hero): void {
-    this.selected_hero = clicked_hero;
+    */
+  }
+  
+  getHeroes2(): void {
+    this.heroes2 = this.heroService.getHeroes2();
+  }
+  /* heroService의 getHeroes 함수를  
+
+  getHeroes(): void {
+    this.heroes = this.heroService.getHeroes();
+  } 기존에는 heroService의 getHeroes함수 리턴값을
+  hero Component의
+  heroes 변수에 넣음
+   */
+  /*
+    hero component의 getHeroes() 함수에는
+    hero service의 getHeroes() 함수를 
+   */
+
+  ngOnInit() {
+    this.getHeroes();
+//    this.getHeroes2();
+  }
+
+  onSelect(hero: Hero): void {
+    this.selected_hero = hero;
   }
 }

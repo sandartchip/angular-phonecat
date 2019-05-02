@@ -10,7 +10,8 @@ const route_info: Routes = [
   { path: 'heroes', component: HeroesComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'detail/:id', component: HeroDetailComponent },
-  { path: 'heroes', component: HeroesComponent }
+  { path: 'heroes', component: HeroesComponent },
+  { path: 'dashboard', component: DashboardComponent }
   // 주소창의 브라우저 URL이랑 매칭되는 string
 ]; // Spring의 request mapping과 비슷한 개념.
 @NgModule({

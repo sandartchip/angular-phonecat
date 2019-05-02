@@ -11,6 +11,10 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { MessageComponent } from './message/message.component';
 import { DashboardComponent } from './dashboard/dashboard.component'; 
 
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
+
 @NgModule({
   declarations: [ //컴포넌트 등록.
     AppComponent,
@@ -31,4 +35,3 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 export class AppModule { }
     //app-routing.module.ts에서 AppRoutingModule 클래스가 정의
     //되어 있었어서 해당 모듈이름 바로 import 가능
-  

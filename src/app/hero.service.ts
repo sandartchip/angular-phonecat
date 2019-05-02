@@ -1,7 +1,7 @@
-//import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Hero } from './hero';
 import { HEROES } from './mock-heroes';
-//import { Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 
 // service .
@@ -13,13 +13,20 @@ import { MessageService } from './message.service';
 
 // HeroService 클래스는 주입가능한 service를 제공할 것이고,
 // 주입된 의존성을 가지게 될 것이다.
+@Injectable({
+  providedIn: 'root',
+})
 export class HeroService {
- // constructor(public messageService: MessageService) { } //생성자
+  constructor(private messageService: MessageService) { }
+  //생성자를 통해 Message서비스 클래스를 받아 옴.
 
   //함수
-  /*
+  getHeroes2(): Hero[] {
+    return HEROES;
+  }
   getHeroes(): Observable<Hero[]> {
-    this.messageService.add('Hero Service: fetched heroes');
-    return of(HEROES);
-  }*/
+    this.messageService.add('hero service test!!');
+    this.messageService.add('hero message test!!');
+    return of(HEROES); //
+  }
 }

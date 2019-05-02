@@ -1,15 +1,17 @@
 <!--The content below is only a placeholder and can be replaced.-->
- 
+
+<!-- 아무 경로 없이 실행하면 표시되는 default view-->
 <h1> {{ title }} {{ title_number }} </h1>
-<router-outlet></router-outlet>
-<!--<app-messages></app-messages>-->
-<!--
-<app-heroes></app-heroes>
--->
+ 
 <nav> <!-- 화면 상단의 navigation-->
-  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink ="/dashboard">Dashboard</a>
   <a routerLink="/heroes">Heroes</a>
 </nav>
+<!--<app-heroes></app-heroes>-->
+
+
+<app-messages></app-messages>
+
 <router-outlet></router-outlet>
-Hero의 detail 정보
-<app-hero-detail [hero]="selectedHero"></app-hero-detail> 
+<!--  라우터 link를 통해 어떤 view를 보여줄지 알아내서
+    해당 view의 내용을 표시함.-->

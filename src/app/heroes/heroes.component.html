@@ -1,34 +1,30 @@
 <!-- CMD에서 실행 명령어:
     : ng serve--open -->
-<h2> My Heroes </h2>
+<h2> Heroes List </h2>
 
-<h2>
-  selected Hero = {{selected_hero.name }}
-</h2>
+<!-- List !!-->
 
-
-<ul class="heroes"> <!--  -->
-  <li *ngFor="let hero of heroes"
-      [class.selected]="hero === selected_hero"
-      (click)="onSelect(hero)"> <!-- click event binding -->
-      <span class="badge">
-        {{hero.id}}
-      </span>
-        {{hero.name}}
+<ul class="heroes">
+  <li *ngFor="let hero of heroes">
+    <a routerLink="/detail/{{ hero.id }}">
+      <span class="badge">{{ hero.id }}</span>
+      {{ hero.name }}
+    </a>
   </li>
 </ul>
-<!--
-<div *ngIf="selected_hero">
-  <h2> {{selected_hero.name | uppercase}} Details</h2>
-  <div>
-    <span>id: </span>{{selected_hero.id}}
-    <label>
-      name:
-      <input [(ngModel)]="selected_hero.name" placeholder="name" />
-    </label>
-  </div>
-</div>
-    -->
+<!-- 
+<ul class="heroes">
+  <li *ngFor="let hero of heroes"
+      [class.selected]="hero === selected_hero"
+      (click)="onSelect(hero)"> 
+      <span class="badge"> {{ hero.id }}</span> {{ hero.name }} 
+  </li>
+</ul>
+-->
+<!-- 현재 클릭된 hero가 선택된 hero이면
+    -> selected CSS를 추가함. -->
+<!-- 클릭된 li에 따라 onSelect()함수 호출. -->
+ 
+<!-- detail Element 표시 component -->
 <app-hero-detail [hero]="selected_hero">
-
-</app-hero-detail>
+</app-hero-detail> 

@@ -7,13 +7,12 @@ import { Injectable } from '@angular/core';
 
 /* 클래스 관련 설정 (함수, 변수 정의)*/
 export class MessageService {
-  messages: string[] = [];
+  private messages: string[] = [];
 
-  add(message: string) {
-    this.messages.push(message);
+  public add(message: string) {
+    this.messages.push(message); 
   }
-
-  clear() {
+  public clear() {
     this.messages = [];
   }
 }

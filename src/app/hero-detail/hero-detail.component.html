@@ -1,24 +1,26 @@
 
-
 <!--
-  Hero의 detail한 정보를 표현하기 위함
+  Hero의 detail한 정보를 표현하기 위한 뷰
  -->
 
-<!-- hero는 -->
-<div *ngIf="hero"> <!-- 아무 hero나 표시 가능.-->
-  <h3>DETAIL ELEMENT표시하는 컴포넌트</h3>
-  <h2> {{hero.name | uppercase}} Details</h2>
+<!-- hero는 --> 
+<div *ngIf="hero"> <!-- hero 값이 있을 때 -->
+  <h3>DETAIL ELEMENT</h3>
+  <h2> {{hero.name | uppercase}}'s Details</h2>
   <div>
-    <span>
-      detail information !
-    </span>
-    {{hero.id}}
+    <span> id: </span>  {{hero.id}}
   </div>
   <div>
     <label> name:
       <input [(ngModel)]="hero.name"
              placeholder="name"/>
+    <!--     
+      ngModel -> formControl 인스턴스는 컨트롤의 값,
+        사용자 상호 작용 및 검증 상태를 추적하고
+        뷰를 모델과 동기화된 상태로 유지한다.
+        부모형태 내에서 사용하는 경우,
+        지시어는 또한 자식 조정기로서 그 형태에 등록된다.
+    -->
     </label>
   </div>
 </div>
-  
