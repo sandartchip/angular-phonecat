@@ -12,8 +12,14 @@ import { MessageComponent } from './message/message.component';
 import { DashboardComponent } from './dashboard/dashboard.component'; 
 
 import { HttpClientModule } from '@angular/common/http';
+
+import { HeroService } from './hero.service';
+
+// HTTP에서 원격 서버와 통신한다.
+
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 @NgModule({
   declarations: [ //컴포넌트 등록.
@@ -21,11 +27,12 @@ import { InMemoryDataService } from './in-memory-data.service';
     HeroesComponent,
     HeroDetailComponent,
     MessageComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeroSearchComponent
   ],
   imports: [      // 모듈 등록.
     BrowserModule,
-    FormsModule,
+    FormsModule, 
     AppRoutingModule
   ],
   providers: [],

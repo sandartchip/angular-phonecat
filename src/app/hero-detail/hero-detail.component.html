@@ -12,6 +12,7 @@
   </div>
   <div>
     <label> name:
+ 
       <input [(ngModel)]="hero.name"
              placeholder="name"/>
     <!--     
@@ -22,5 +23,6 @@
         지시어는 또한 자식 조정기로서 그 형태에 등록된다.
     -->
     </label>
+    <button (click)="save()">save</button>
   </div>
 </div>

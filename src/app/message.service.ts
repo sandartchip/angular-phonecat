@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 /* annotation 관련 설정 */
 @Injectable({
@@ -8,7 +9,7 @@ import { Injectable } from '@angular/core';
 /* 클래스 관련 설정 (함수, 변수 정의)*/
 export class MessageService {
   private messages: string[] = [];
-
+  
   public add(message: string) {
     this.messages.push(message); 
   }

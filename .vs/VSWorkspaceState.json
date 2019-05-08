@@ -5,10 +5,11 @@
     "\\src\\app",
     "\\src\\app\\dashboard",
     "\\src\\app\\hero-detail",
+    "\\src\\app\\hero-search",
     "\\src\\app\\heroes",
     "\\src\\app\\message",
     "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\app",
+  "SelectedNode": "\\src\\app\\hero-search\\hero-search.component.css",
   "PreviewInSolutionExplorer": false
 }
