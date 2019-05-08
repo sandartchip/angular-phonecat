@@ -11,7 +11,9 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { MessageComponent } from './message/message.component';
 import { DashboardComponent } from './dashboard/dashboard.component'; 
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+import { HttpModule } from '@angular/http';
 
 import { HeroService } from './hero.service';
 
@@ -19,7 +21,6 @@ import { HeroService } from './hero.service';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
-import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 @NgModule({
   declarations: [ //컴포넌트 등록.
@@ -28,12 +29,19 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroDetailComponent,
     MessageComponent,
     DashboardComponent,
-    HeroSearchComponent
   ],
-  imports: [      // 모듈 등록.
+  imports: [      // 사용할 모듈 등록.
     BrowserModule,
     FormsModule, 
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    /*
+     the httpclient in memorywebApi module intercepts Http requests
+    */
+
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [],
   //의존성 주입을 위해서 Angular에 주입 대상 인스턴스를

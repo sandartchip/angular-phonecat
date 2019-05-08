@@ -4,8 +4,9 @@ import { HEROES } from './mock-heroes';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { catchError, map, tap } from "rxjs/operators";
-
 // rest api에서 data를 읽어오기 위해 Http 패키지 필요.
 // header는 Http Header를 작성하기 위해 불러 옴.
 // service .
@@ -45,17 +46,40 @@ export class HeroService {
   // Observable<T>은
   // 관찰 가능한 observable에 여러 가지 타입이 올 수 있으므로
 
+  public getHero(id: number): Observable<Hero> {
+
+    const url = '${this.heroesUrl}/${id}';
+    console.log('url is: ' + url);
+
+    return this.http.get<Hero>(url).pipe(
+      tap(_ => this.log('fetched hero id=${id}')),
+      // don't care
+      // httpClient.get
+      catchError(this.handleError<Hero>('getHero id=${id}'))
+    );    //  catchError:
+    // Catches errors on the ""observable"" to be handled
+    // by returning a new observable or throwing an error.
+  }
   public getHeroes(): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
       tap(_ => this.log('fetched heroes')),
       catchError(this.handleError<Hero[]>('getHeroes', []))
       );
-    //get방식으로 Hero배열 받아와서 옵저버블을 통해 방출 한 다음 
-    // 에러를 잡음.
-    //컴포넌트에서 옵저버블로 방출한 Hero[]을
-    // heroese component에서 subscribe.
   }
+
+  public addHero(hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
+      tap((newHero: Hero) => this.log('added hero w/id=${newHero.id}')),
+      catchError(this.handleError<Hero>('addHero'))
+      //서버 실패를 캐치하고 error handler에 전달한다.
+    );
+  }
+    
+  //get방식으로 Hero배열 받아와서 옵저버블을 통해 방출 한 다음 
+  // 에러를 잡음.
+  //컴포넌트에서 옵저버블로 방출한 Hero[]을
+  // heroese component에서 subscribe. 
 
   private log(message: string) {
     this.messageService.add('heroService: ${message}');
@@ -71,26 +95,5 @@ export class HeroService {
     }
   }
 
-  public getHero(id: number): Observable<Hero> {
-
-    const url = '${this.heroesUrl}/${id}';
-
-    //httpClient.get
-    return this.http.get<Hero>(url).pipe(
-      tap(_ => this.log('fetched hero id=${id}')),
-      // don't care
-      catchError(this.handleError<Hero>('getHero id=${id}'))
-    );
-    //  catchError:
-    // Catches errors on the ""observable"" to be handled
-    // by returning a new observable or throwing an error.
-  }
-
-  public addHero(hero: Hero): Observable<Hero> {
-    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
-      tap((newHero: Hero) => this.log('added hero w/id=${newHero.id}')),
-      catchError(this.handleError<Hero>('addHero'))
-    );
-  }
   //http.get은 RxJS Observable을 반환
 }
