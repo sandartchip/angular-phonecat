@@ -104,7 +104,7 @@ export class HeroService {
     );
   } /* POST 방식으로 Hero를 heroesUrl */
 
-  // PUT : update the hero on the server
+  // PUT : 이름 변경 기능
   public updateHero(hero: Hero): Observable<any> {
     return this.http.put(this.heroesUrl, hero, httpOptions).pipe
       (
@@ -122,13 +122,17 @@ export class HeroService {
       tap(_ => this.log('deleted hero id =${id}')),
       catchError(this.handleError<Hero>('deleteHero'))
     );
-  }
-  /*
+  } 
   public searchHeroes(term: string): Observable<Hero[]> {
     if (!term.trim()) {
-
+      // if not search term, return empty hero array.
+      return of([]);
     }
-  }*/
+    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+      tap(_ => this.log(`found heroes matching "${term}"`)),
+      catchError(this.handleError<Hero[]>('searchHeroes', []))
+    );
+  }
   //get방식으로 Hero배열 받아와서 옵저버블을 통해 방출 한 다음 
   // 에러를 잡음.
   //컴포넌트에서 옵저버블로 방출한 Hero[]을
