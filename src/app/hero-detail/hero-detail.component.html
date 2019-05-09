@@ -1,18 +1,15 @@
 
-<!--
-  Hero의 detail한 정보를 표현하기 위한 뷰
- -->
-
-<!-- hero는 --> 
+<!-- hero는 -->
 <div *ngIf="hero"> <!-- hero 값이 있을 때 -->
-  <h3>DETAIL ELEMENT</h3>
+
   <h2> {{hero.name | uppercase}}'s Details</h2>
+
   <div>
     <span> id: </span>  {{hero.id}}
   </div>
+
   <div>
     <label> name:
- 
       <input [(ngModel)]="hero.name"
              placeholder="name"/>
     <!--     
@@ -23,6 +20,7 @@
         지시어는 또한 자식 조정기로서 그 형태에 등록된다.
     -->
     </label>
-    <button (click)="save()">save</button>
   </div>
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
 </div>

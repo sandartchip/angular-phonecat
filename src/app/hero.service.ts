@@ -46,10 +46,37 @@ export class HeroService {
   // Observable<T>은
   // 관찰 가능한 observable에 여러 가지 타입이 올 수 있으므로
 
-  public getHero(id: number): Observable<Hero> {
+  // 
+  public getHeroes(): Observable<Hero[]> { //리스트 출력
+    return this.http.get<Hero[]>(this.heroesUrl)
+      .pipe(
+      tap(_ => this.log('fetched heroes')),
+      catchError(this.handleError<Hero[]>('getHeroes', []))
+      );
+  }
+  /*
+  GET hero by id. Return 'undefined' when id not found
+   */
 
-    const url = '${this.heroesUrl}/${id}';
-    console.log('url is: ' + url);
+  public getHeroNo404<Data>(id: number): Observable<Hero> {
+    const url = '${this.heroesUrl}/?id=${id}';
+    return this.http.get<Hero[]>(url)
+      .pipe(
+      map(heroes => heroes[0]), //returns a {0|1} element array
+      tap(h => {
+        const outcome = h ? 'fetched' : 'did not find';
+        this.log('${outcome} hero id=${id}');
+      }),
+      catchError(this.handleError<Hero>('getHero id=${id}'))
+    );
+  }
+  public getHero(id: number): Observable<Hero> {
+    //Hero 객체에 대한 observable
+
+    const url = `${this.heroesUrl}/${id}`;
+
+//    const url2 = '${this.heroesUrl}/${id}';
+    console.log('emit url is: ' + url);
 
     return this.http.get<Hero>(url).pipe(
       tap(_ => this.log('fetched hero id=${id}')),
@@ -60,34 +87,57 @@ export class HeroService {
     // Catches errors on the ""observable"" to be handled
     // by returning a new observable or throwing an error.
   }
-  public getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl)
-      .pipe(
-      tap(_ => this.log('fetched heroes')),
-      catchError(this.handleError<Hero[]>('getHeroes', []))
-      );
-  }
+  ////////// save methods ////////////////
+
+  // POST: add a new hero to the server
 
   public addHero(hero: Hero): Observable<Hero> {
     return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
       tap((newHero: Hero) => this.log('added hero w/id=${newHero.id}')),
       catchError(this.handleError<Hero>('addHero'))
+
+      // api/heroes로 추가할 hero를 post로 요청해서 inmemory DB로 요청 쏨.
+
+      // http.post는 옵저버블을 리턴함.
+
       //서버 실패를 캐치하고 error handler에 전달한다.
     );
+  } /* POST 방식으로 Hero를 heroesUrl */
+
+  // PUT : update the hero on the server
+  public updateHero(hero: Hero): Observable<any> {
+    return this.http.put(this.heroesUrl, hero, httpOptions).pipe
+      (
+      tap(_ => this.log('updated hero id=${hero.id}')),
+      catchError(this.handleError<any>('updateHero'))
+      );
   }
-    
+
+  // DELETE: delete the hero from the server
+  public deleteHero(hero: Hero | number): Observable<Hero> {
+    const id = typeof hero === 'number' ? hero : hero.id;
+    const url = '${this.heroesUrl}/${id}';
+
+    return this.http.delete<Hero>(url, httpOptions).pipe(
+      tap(_ => this.log('deleted hero id =${id}')),
+      catchError(this.handleError<Hero>('deleteHero'))
+    );
+  }
+  /*
+  public searchHeroes(term: string): Observable<Hero[]> {
+    if (!term.trim()) {
+
+    }
+  }*/
   //get방식으로 Hero배열 받아와서 옵저버블을 통해 방출 한 다음 
   // 에러를 잡음.
   //컴포넌트에서 옵저버블로 방출한 Hero[]을
   // heroese component에서 subscribe. 
 
-  private log(message: string) {
-    this.messageService.add('heroService: ${message}');
-  }
-
   //의존성 주입을 통해 http Client와
   // message service를 받아 옴.
 
+  // Http operation 실패한거 제어.
   private handleError<T>(operation = 'operation', result?: T) {
 
     return (error: any): Observable<T> => {
@@ -95,5 +145,9 @@ export class HeroService {
     }
   }
 
+   /** Log a HeroService message with the MessageService */
+  private log(message: string) {
+    this.messageService.add('heroService: ${message}');
+  }
   //http.get은 RxJS Observable을 반환
 }

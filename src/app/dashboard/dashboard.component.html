@@ -1,7 +1,8 @@
 
 <h3>DashBoard of Heroes</h3>
 <div class="grid grid-pad">
-  <a *ngFor="let hero of heroes" class="col-1-4" <!-- repeater-->
+  <a *ngFor="let hero of heroes" class="col-1-4"
+     
      routerLink="/detail/{{hero.id}}">
   <!--브라우저에서 사용되는 링크 생성-->
     <div class="module hero">
@@ -9,3 +10,6 @@
     </div>
   </a>
 </div>
+<!--
+<app-hero-search></app-hero-search>
+-->

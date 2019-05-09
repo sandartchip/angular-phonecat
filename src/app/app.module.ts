@@ -21,6 +21,7 @@ import { HeroService } from './hero.service';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 @NgModule({
   declarations: [ //컴포넌트 등록.
@@ -29,6 +30,7 @@ import { InMemoryDataService } from './in-memory-data.service';
     HeroDetailComponent,
     MessageComponent,
     DashboardComponent,
+    HeroSearchComponent,
   ],
   imports: [      // 사용할 모듈 등록.
     BrowserModule,

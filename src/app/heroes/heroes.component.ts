@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
-import { Observable, of } from 'rxjs'; 
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-heroes', //HTML에서 호출할 때 쓰는 이름.
@@ -36,5 +36,10 @@ export class HeroesComponent implements OnInit {
       .subscribe(hero => {
         this.heroes.push(hero);
       })
+  }
+
+  public delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero).subscribe();
   }
 }

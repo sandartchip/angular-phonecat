@@ -14,6 +14,7 @@ const route_info: Routes = [
   { path: 'dashboard', component: DashboardComponent }
   // 주소창의 브라우저 URL이랑 매칭되는 string
 ]; // Spring의 request mapping과 비슷한 개념.
+
 @NgModule({
   exports: [
     RouterModule
